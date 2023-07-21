@@ -1,3 +1,5 @@
+import org.gradle.kotlin.dsl.exclude
+import org.gradle.kotlin.dsl.implementation
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -21,10 +23,21 @@ repositories {
 extra["springCloudVersion"] = "2022.0.3"
 
 dependencies {
+	// Spring Boot
+	implementation("org.springframework.boot:spring-boot-starter-web") {
+		exclude(group = "org.springframework.boot", module = "spring-boot-starter-tomcat")
+	}
+	implementation("org.springframework.boot:spring-boot-starter-undertow")
 	implementation("org.springframework.boot:spring-boot-starter-web")
+
+	// Kotlin
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
+
+	// Spring Cloud
 	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-server")
+
+	// Testing
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
